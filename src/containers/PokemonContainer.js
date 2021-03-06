@@ -28,6 +28,14 @@ const POKEDEX = {
     limit: 107,
     offset: 386,
   },
+  unova: {
+    limit: 155,
+    offset: 494,
+  },
+  kalos: {
+    limit: 69,
+    offset: 649,
+  },
 };
 
 const PokemonContainer = () => {
@@ -47,10 +55,6 @@ const PokemonContainer = () => {
   if (!data) {
     return <div />;
   }
-
-  const numberEntries = Math.abs(
-    POKEDEX[region].offset - POKEDEX[region].limit
-  );
 
   return (
     <Container maxW="6xl" centerContent>
@@ -74,7 +78,7 @@ const PokemonContainer = () => {
               justifyContent="center"
               alignItems="center"
             >
-              <Spinner />
+              <Spinner color="white" />
             </Box>
           }
         />
@@ -100,7 +104,7 @@ const PokemonContainer = () => {
 
       <Box my="5" width="100%" textAlign="left">
         <Text>
-          There are <b>{numberEntries}</b> entries.
+          There are <b>{POKEDEX[region].limit}</b> entries.
         </Text>
       </Box>
 

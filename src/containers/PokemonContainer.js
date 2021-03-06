@@ -3,6 +3,7 @@ import {
   Container,
   Box,
   Image,
+  Spinner,
   Select,
   Text,
   SimpleGrid,
@@ -62,7 +63,21 @@ const PokemonContainer = () => {
         flexDirection="column"
         alignItems="center"
       >
-        <Image width="100px" src="/pokedex.png" />
+        <Image
+          width="100px"
+          height="95px"
+          src="/pokedex.png"
+          fallback={
+            <Box
+              height="95px"
+              d="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Spinner />
+            </Box>
+          }
+        />
 
         <Text mt="5" mb="2" fontSize="sm" fontWeight="bold" color="white">
           Select a Region

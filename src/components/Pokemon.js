@@ -97,11 +97,25 @@ const Pokemon = ({ id, url }) => {
     return englishEntries[randomIndex].flavor_text;
   };
 
+  const getSupportedColor = (colorName) => {
+    switch (colorName) {
+      case "brown":
+        return "orange";
+      case "black":
+      case "white":
+        return "gray";
+      default:
+        return colorName;
+    }
+  };
+
+  const color = getSupportedColor(speciesData.color.name);
+
   return (
     <Fade in>
       <Box
         id={id}
-        backgroundColor={`${speciesData.color.name}.50`}
+        backgroundColor={`${color}.50`}
         borderWidth="2px"
         borderRadius="lg"
         borderColor="gray.100"
@@ -113,7 +127,7 @@ const Pokemon = ({ id, url }) => {
             fontWeight="bold"
             fontSize="sm"
             variant="subtle"
-            colorScheme={speciesData.color.name}
+            colorScheme={color}
             mr="2"
             mb="2"
           >
@@ -130,13 +144,13 @@ const Pokemon = ({ id, url }) => {
         </Box>
 
         <Box
-          backgroundColor={`${speciesData.color.name}.200`}
+          backgroundColor={`${color}.200`}
           borderRadius="lg"
           d="flex"
           alignItems="center"
           justifyContent="center"
           borderWidth="2px"
-          borderColor={`${speciesData.color.name}.200`}
+          borderColor={`${color}.200`}
         >
           <Image
             src={generalData.sprites[sprite]}
@@ -149,7 +163,7 @@ const Pokemon = ({ id, url }) => {
                 justifyContent="center"
                 alignItems="center"
               >
-                <Spinner color={`${speciesData.color.name}.300`} />
+                <Spinner color={`${color}.300`} />
               </Box>
             }
           />

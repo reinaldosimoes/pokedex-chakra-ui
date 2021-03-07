@@ -39,6 +39,18 @@ const POKEDEX = {
   },
 };
 
+const formatId = (id) => {
+  if (id < 10) {
+    return `00${id}`;
+  }
+
+  if (id < 100) {
+    return `0${id}`;
+  }
+
+  return id;
+};
+
 const PokemonContainer = () => {
   const [region, setRegion] = React.useState(Object.keys(POKEDEX)[0]);
   const [data, setData] = React.useState();
@@ -98,7 +110,9 @@ const PokemonContainer = () => {
         >
           {Object.keys(POKEDEX).map((region, i) => (
             <option value={region} key={i}>
-              {region.replace(/^./, (str) => str.toUpperCase())}
+              {`${region.replace(/^./, (str) => str.toUpperCase())} (${formatId(
+                POKEDEX[region].offset
+              )}-${POKEDEX[region].limit + POKEDEX[region].offset})`}
             </option>
           ))}
         </Select>
@@ -113,7 +127,7 @@ const PokemonContainer = () => {
         justifyContent="space-between"
       >
         <Text>
-          There are <b>{POKEDEX[region].limit}</b> entries.
+          There are <b>{POKEDEX[region].limit}</b> entries in this region.
         </Text>
 
         <Button

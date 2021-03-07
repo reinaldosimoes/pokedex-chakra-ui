@@ -17,6 +17,7 @@ import {
   ModalCloseButton,
   ModalHeader,
   ModalContent,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 
@@ -120,14 +121,47 @@ const Pokemon = ({ id, url }) => {
 
   const color = getSupportedColor(speciesData.color.name);
 
+  const formatId = (id) => {
+    if (id < 10) {
+      return `00${id}`;
+    }
+
+    if (id < 100) {
+      return `0${id}`;
+    }
+
+    return id;
+  };
+
   return (
     <Fade in>
-      <Modal isCentered closeOnOverlayClick isOpen={isOpen} onClose={onClose}>
+      <Modal
+        scrollBehavior="inside"
+        isCentered
+        closeOnOverlayClick
+        isOpen={isOpen}
+        onClose={onClose}
+      >
         <ModalOverlay />
         <ModalContent backgroundColor={`${color}.50`}>
           <ModalCloseButton />
           <ModalHeader>
-            <Text casing="capitalize">{generalData.name}</Text>
+            <Text casing="capitalize" d="flex" alignItems="center">
+              {generalData.name}{" "}
+              {generalData.types.map((details, i) => (
+                <div key={i}>
+                  <Badge
+                    borderRadius="full"
+                    px="2"
+                    variant="outline"
+                    colorScheme={TYPE[details.type.name]}
+                    ml="2"
+                  >
+                    {details.type.name}
+                  </Badge>
+                </div>
+              ))}
+            </Text>
           </ModalHeader>
           <ModalBody>
             <Box
@@ -136,8 +170,9 @@ const Pokemon = ({ id, url }) => {
               d="flex"
               alignItems="center"
               justifyContent="center"
-              borderWidth="2px"
+              borderWidth="1px"
               borderColor={`${color}.200`}
+              position="relative"
             >
               <Image
                 src={generalData.sprites[sprite]}
@@ -154,8 +189,57 @@ const Pokemon = ({ id, url }) => {
                   </Box>
                 }
               />
+              <IconButton
+                colorScheme="yellow"
+                isActive={sprite === SHINY_SPRITE}
+                size="xs"
+                icon={<StarIcon />}
+                onClick={toggleSprite}
+                position="absolute"
+                right="10px"
+                top="0"
+                mt="2"
+              />
+              <Tag
+                fontWeight="bold"
+                colorScheme={color}
+                mr="2"
+                mb="2"
+                position="absolute"
+                left="10px"
+                bottom="0"
+              >
+                {formatId(generalData.id)}
+              </Tag>
             </Box>
-            <Text my="5">{description}</Text>
+            <Text mt="5" mb="2" fontWeight="bold">
+              Description
+            </Text>
+            <Text>{description}</Text>
+
+            <Text mt="5" mb="2" fontWeight="bold">
+              Abilities
+            </Text>
+            <SimpleGrid columns={3} spacing={2}>
+              {generalData.abilities.map((ability, i) => (
+                <Text key={i} casing="capitalize">
+                  {ability.ability.name.replace(/-/g, " ")}
+                </Text>
+              ))}
+            </SimpleGrid>
+
+            <Box mb="5">
+              <Text mt="5" mb="2" fontWeight="bold">
+                Moves
+              </Text>
+              <SimpleGrid columns={3} spacing={2}>
+                {generalData.moves.map((move, i) => (
+                  <Text key={i} casing="capitalize">
+                    {move.move.name.replace(/-/g, " ")}
+                  </Text>
+                ))}
+              </SimpleGrid>
+            </Box>
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -163,36 +247,16 @@ const Pokemon = ({ id, url }) => {
       <Box
         id={id}
         backgroundColor={`${color}.50`}
-        borderWidth="2px"
+        borderWidth="1px"
         borderRadius="lg"
         borderColor="gray.100"
         py="5"
         px="5"
       >
-        <Box d="flex" justifyContent="space-between">
-          <Tag
-            fontWeight="bold"
-            fontSize="sm"
-            variant="subtle"
-            colorScheme={color}
-            mr="2"
-            mb="2"
-          >
-            #{generalData.id}
-          </Tag>
-
-          <IconButton
-            colorScheme="yellow"
-            isActive={sprite === SHINY_SPRITE}
-            size="xs"
-            icon={<StarIcon />}
-            onClick={toggleSprite}
-          />
-        </Box>
-
         <Box
           backgroundColor={`${color}.200`}
           borderRadius="lg"
+          position="relative"
           d="flex"
           alignItems="center"
           justifyContent="center"
@@ -214,6 +278,28 @@ const Pokemon = ({ id, url }) => {
               </Box>
             }
           />
+          <IconButton
+            colorScheme="yellow"
+            isActive={sprite === SHINY_SPRITE}
+            size="xs"
+            icon={<StarIcon />}
+            onClick={toggleSprite}
+            position="absolute"
+            right="10px"
+            top="0"
+            mt="2"
+          />
+          <Tag
+            fontWeight="bold"
+            colorScheme={color}
+            mr="2"
+            mb="2"
+            position="absolute"
+            left="10px"
+            bottom="0"
+          >
+            {formatId(generalData.id)}
+          </Tag>
         </Box>
 
         <Box mt="3" d="flex" alignItems="center" justifyContent="center">
@@ -240,7 +326,7 @@ const Pokemon = ({ id, url }) => {
 
         {speciesData && (
           <>
-            <Text fontSize="sm" noOfLines={1} mt="4">
+            <Text fontSize="sm" noOfLines={2} mt="4">
               {description}
             </Text>
 
@@ -251,7 +337,7 @@ const Pokemon = ({ id, url }) => {
               colorScheme={color}
               onClick={onOpen}
             >
-              Show full description
+              More details
             </Button>
           </>
         )}

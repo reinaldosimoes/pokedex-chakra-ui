@@ -8,7 +8,7 @@ const ScrollToTopButton = () => {
   };
 
   return (
-    <Box position="fixed" bottom="5" right="5" zIndex="popover">
+    <Box position="fixed" bottom="5" right="5" zIndex="docked">
       <IconButton onClick={scrollToTop} icon={<ArrowUpIcon />} />
     </Box>
   );

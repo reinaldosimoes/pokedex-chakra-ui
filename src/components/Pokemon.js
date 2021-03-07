@@ -240,7 +240,7 @@ const Pokemon = ({ id, url }) => {
 
         {speciesData && (
           <>
-            <Text fontSize="sm" noOfLines={2} mt="4">
+            <Text fontSize="sm" noOfLines={1} mt="4">
               {description}
             </Text>
 
@@ -251,7 +251,7 @@ const Pokemon = ({ id, url }) => {
               colorScheme={color}
               onClick={onOpen}
             >
-              Show description
+              Show full description
             </Button>
           </>
         )}

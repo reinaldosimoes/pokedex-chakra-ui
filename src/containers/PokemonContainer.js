@@ -6,6 +6,7 @@ import {
   Spinner,
   Select,
   Text,
+  Button,
   SimpleGrid,
   GridItem,
 } from "@chakra-ui/react";
@@ -102,10 +103,27 @@ const PokemonContainer = () => {
         </Select>
       </Box>
 
-      <Box my="5" width="100%" textAlign="left">
+      <Box
+        my="5"
+        width="100%"
+        textAlign="left"
+        d="flex"
+        alignItems="center"
+        justifyContent="space-between"
+      >
         <Text>
           There are <b>{POKEDEX[region].limit}</b> entries.
         </Text>
+
+        <Button
+          variant="outline"
+          onClick={() =>
+            window.open("https://github.com/reinaldosimoes/pokedex-chakra-ui")
+          }
+        >
+          <Image width="20px" src="/github.svg" />{" "}
+          <Text ml="2">View source</Text>
+        </Button>
       </Box>
 
       <SimpleGrid columns={[1, 2, null, 3, 4, 5]} spacing={10}>

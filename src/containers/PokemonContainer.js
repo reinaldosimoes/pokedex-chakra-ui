@@ -83,15 +83,16 @@ const PokemonContainer = () => {
             </Box>
           }
         />
-
         <Text mt="5" mb="2" fontSize="sm" fontWeight="bold" color="white">
           Select a Region
         </Text>
 
         <Select
           mb="5"
-          variant="filled"
           width="xs"
+          bg="gray.100"
+          borderColor="gray.100"
+          color="black"
           defaultValue={Object.keys(POKEDEX)[0]}
           onChange={(e) => setSelectedRegion(e)}
         >

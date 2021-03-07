@@ -9,6 +9,14 @@ import {
   Text,
   Image,
   IconButton,
+  Button,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalBody,
+  ModalCloseButton,
+  ModalHeader,
+  ModalContent,
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 
@@ -40,6 +48,7 @@ const Pokemon = ({ id, url }) => {
   const [speciesData, setSpeciesData] = React.useState();
   const [sprite, setSprite] = React.useState(REGULAR_SPRITE);
   const [description, setDescription] = React.useState();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   React.useEffect(() => {
     fetch(url)
@@ -113,6 +122,44 @@ const Pokemon = ({ id, url }) => {
 
   return (
     <Fade in>
+      <Modal isCentered closeOnOverlayClick isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent backgroundColor={`${color}.50`}>
+          <ModalCloseButton />
+          <ModalHeader>
+            <Text casing="capitalize">{generalData.name}</Text>
+          </ModalHeader>
+          <ModalBody>
+            <Box
+              backgroundColor={`${color}.200`}
+              borderRadius="lg"
+              d="flex"
+              alignItems="center"
+              justifyContent="center"
+              borderWidth="2px"
+              borderColor={`${color}.200`}
+            >
+              <Image
+                src={generalData.sprites[sprite]}
+                alt={`${generalData.name}-sprite`}
+                height="140px"
+                fallback={
+                  <Box
+                    height="140px"
+                    d="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <Spinner color={`${color}.300`} />
+                  </Box>
+                }
+              />
+            </Box>
+            <Text my="5">{description}</Text>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+
       <Box
         id={id}
         backgroundColor={`${color}.50`}
@@ -192,9 +239,21 @@ const Pokemon = ({ id, url }) => {
         </Box>
 
         {speciesData && (
-          <Text as="q" fontSize="sm" noOfLines={[10, 2]} mt="4">
-            {description}
-          </Text>
+          <>
+            <Text fontSize="sm" noOfLines={2} mt="4">
+              {description}
+            </Text>
+
+            <Button
+              mt="2"
+              size="sm"
+              isFullWidth
+              colorScheme={color}
+              onClick={onOpen}
+            >
+              Show description
+            </Button>
+          </>
         )}
       </Box>
     </Fade>

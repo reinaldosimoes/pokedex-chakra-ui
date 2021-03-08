@@ -173,6 +173,7 @@ const Pokemon = ({ id, url }) => {
             <div key={i}>
               <Badge
                 borderRadius="full"
+                variant="outline"
                 px="2"
                 colorScheme={TYPE[details.type.name]}
                 ml={details.slot === 2 && "2"}

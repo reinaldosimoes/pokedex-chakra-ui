@@ -67,6 +67,7 @@ const PokemonModal = ({
               <div key={i}>
                 <Badge
                   borderRadius="full"
+                  variant="outline"
                   px="2"
                   colorScheme={TYPE[details.type.name]}
                   ml="2"

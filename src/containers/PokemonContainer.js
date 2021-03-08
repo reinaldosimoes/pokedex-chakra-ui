@@ -72,7 +72,7 @@ const PokemonContainer = () => {
   return (
     <Container maxW="6xl" centerContent>
       <Box
-        backgroundColor="red.400"
+        backgroundColor="gray.500"
         width="100vw"
         textAlign="center"
         py="10"
@@ -141,7 +141,7 @@ const PokemonContainer = () => {
         </Button>
       </Box>
 
-      <SimpleGrid columns={[1, 2, null, 3, 4, 5]} spacing={10}>
+      <SimpleGrid columns={[1, 2, null, 3, 4, 5]} spacing={5}>
         {data.results.map((pokemon) => (
           <GridItem key={pokemon.name}>
             <Pokemon id={pokemon.name} url={pokemon.url} />

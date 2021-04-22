@@ -66,11 +66,11 @@ const PokemonContainer = () => {
   const setSelectedRegion = (e) => setRegion(e.target.value);
 
   if (!data) {
-    return <div />;
+    return <Container maxW="6xl" minH="100vh" />;
   }
 
   return (
-    <Container maxW="6xl" centerContent minH="100vh">
+    <Container maxW="6xl" centerContent>
       <Box
         backgroundColor="gray.500"
         width="100vw"

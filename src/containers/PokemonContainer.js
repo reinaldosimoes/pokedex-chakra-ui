@@ -70,7 +70,7 @@ const PokemonContainer = () => {
   }
 
   return (
-    <Container maxW="6xl" centerContent>
+    <Container maxW="6xl" centerContent minH="100vh">
       <Box
         backgroundColor="gray.500"
         width="100vw"

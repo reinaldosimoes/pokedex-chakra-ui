@@ -19,13 +19,11 @@ const useDebounce = (value, delay) => {
 };
 
 const ScrollToTopButton = () => {
-  const [isHidden, setIsHidden] = React.useState(
-    window && window.scrollY < 350
-  );
+  const [isHidden, setIsHidden] = React.useState(window?.scrollY < 350);
   const debouncedIsHidden = useDebounce(isHidden, 500);
 
   const handleScroll = () => {
-    if (window.scrollY < 350) {
+    if (window.scrollY <= 350) {
       return setIsHidden(true);
     }
 
@@ -35,7 +33,7 @@ const ScrollToTopButton = () => {
   React.useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  });
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({ behavior: "smooth", top: 0 });

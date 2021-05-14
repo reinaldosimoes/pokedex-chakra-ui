@@ -85,9 +85,7 @@ const Pokemon = ({ id, url }) => {
       setSprite(SHINY_SPRITE);
     }
 
-    if (sprite === SHINY_SPRITE) {
-      setSprite(REGULAR_SPRITE);
-    }
+    setSprite(REGULAR_SPRITE);
   };
 
   const color = getSupportedColor(speciesData.color.name);

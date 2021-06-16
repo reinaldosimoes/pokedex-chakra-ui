@@ -80,13 +80,8 @@ const Pokemon = ({ id, url }) => {
     return <div />;
   }
 
-  const toggleSprite = () => {
-    if (sprite === REGULAR_SPRITE) {
-      setSprite(SHINY_SPRITE);
-    }
-
-    setSprite(REGULAR_SPRITE);
-  };
+  const toggleSprite = () =>
+    setSprite(sprite === REGULAR_SPRITE ? SHINY_SPRITE : REGULAR_SPRITE);
 
   const color = getSupportedColor(speciesData.color.name);
 
